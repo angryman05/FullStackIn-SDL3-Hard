@@ -44,8 +44,8 @@ float displayScale{1.0f};
 glm::vec2 mouseDelta{0.0f, 0.0f};
 bool leftMouseDown{false};
 float playerFireTimer{0.0f};
-
-constexpr float MOUSE_SENSITIVITY{20.0f}; // eu zik ca e mai ok asa, eu joc mai high sensitivity ca is invatat de la osu!
+//stiu ca nu respecta cerinta dar am adaugat variabila pt sensivitate ca se misca prea incet
+constexpr float MOUSE_SENSITIVITY{20.0f}; // eu zic ca e mai ok asa, eu joc mai high sensitivity ca is invatat de la osu!
 constexpr int ENEMIES_TO_WIN{5}; // am pus 5 enemies ca ii mai usor de testat
 int killedEnemies{0};
 constexpr int ENEMY_SLICES{3};
@@ -85,16 +85,11 @@ glm::vec2 rotateVec(glm::vec2 v, float angle) {
     return glm::vec2(v.x * c - v.y * s, v.x * s + v.y * c);
 }
 
-
-
-
 glm::vec2 getLogicalWindowSize() {
     int w, h;
     SDL_GetWindowSize(window, &w, &h);
     return glm::vec2(w / displayScale, h / displayScale);
 }
-
-
 
 void animatePlayer() {
     if (glm::length(mouseDelta) > 0.0f) {
@@ -137,8 +132,6 @@ void animatePlayer() {
 
     mouseDelta = glm::vec2(0.0f);
 }
-
-
 void animatePlayerProjectiles() {
     if (leftMouseDown) {
         playerFireTimer += DT;
@@ -283,6 +276,7 @@ void processEvents() {
                     std::cout << "RIGHT arrow key was pressed" << std::endl;
                     break;
                 case SDLK_R:
+                    std::cout << "Se reseteaza jocu adevarat" << std::endl;
                     if (gameOver)
                         resetGame();
                     break;
