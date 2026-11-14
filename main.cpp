@@ -75,6 +75,9 @@ std::vector<Enemy> enemies;
 std::vector<Circle> proiectile_inamici, proiectile_player;
 
 float randomFloat(float minValue, float maxValue) {
+    if (minValue >= maxValue) {
+        return minValue;
+    }
     std::uniform_real_distribution<float> dist(minValue, maxValue);
     return dist(rng);
 }
@@ -88,7 +91,8 @@ glm::vec2 rotateVec(glm::vec2 v, float angle) {
 glm::vec2 getLogicalWindowSize() {
     int w, h;
     SDL_GetWindowSize(window, &w, &h);
-    return glm::vec2(w / displayScale, h / displayScale);
+    float scale = displayScale > 0.0f ? displayScale : 1.0f;
+    return glm::vec2(w / scale, h / scale);
 }
 
 void animatePlayer() {
@@ -187,7 +191,11 @@ bool initWindow() {
         success = false;
     } else {
         //Try to create the window and renderer
-        displayScale = SDL_GetDisplayContentScale(1);
+        //pe fedora linux lu colegu pusca
+        displayScale = SDL_GetDisplayContentScale(SDL_GetPrimaryDisplay());
+        if (displayScale <= 0.0f) {
+            displayScale = 1.0f;
+        }
 
         if (!SDL_CreateWindowAndRenderer(
             "SDL Hello World Example",
