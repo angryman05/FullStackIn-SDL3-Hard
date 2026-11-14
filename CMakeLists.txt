@@ -13,7 +13,7 @@ add_executable(SDL3_Project_SelfContained
 
 if(WIN32)
     include_directories(SDL3/include)
-    link_directories(SDL3/lib)
+    target_link_directories(SDL3_Project_SelfContained PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/SDL3/lib)
     target_link_libraries(SDL3_Project_SelfContained mingw32 SDL3)
 else()
     find_package(SDL3 REQUIRED CONFIG)
