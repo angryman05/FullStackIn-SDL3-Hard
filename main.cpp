@@ -198,7 +198,7 @@ bool initWindow() {
         }
 
         if (!SDL_CreateWindowAndRenderer(
-            "SDL Hello World Example",
+            "Xevious daca era facut in Bistrita",
             static_cast<int>(displayScale * WINDOW_WIDTH),
             static_cast<int>(displayScale * WINDOW_HEIGHT),
             0,
